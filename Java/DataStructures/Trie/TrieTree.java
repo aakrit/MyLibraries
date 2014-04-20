@@ -12,7 +12,7 @@ public class TrieTree
         for(; i < wordCharacters.length-1; i++){
             TrieNode t = new TrieNode(wordCharacters[i], false);
             next.addChildNode(t);
-            next = t;//get the reference to the Node we just created
+            next = next.getChildNode(wordCharacters[i]);//get the reference to the Node we just created
         }
         //now add the last character
         TrieNode t = new TrieNode(wordCharacters[i], true);
