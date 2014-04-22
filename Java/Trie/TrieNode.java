@@ -4,37 +4,43 @@ import java.util.ArrayList;
 import java.util.HashSet;
 
 //The following class is responsible for storing a Character and all its child characters that would help it make a word
-public class TrieNode
+public class TrieNode<T extends Comparable<? super T>>
 {
 
-    private ArrayList<TrieNode> childNodes;
-    private boolean endWord;
-    private Character value;
+    private ArrayList<TrieNode<T>> childNodes;
+    private boolean endWord;//if storing words
+    private T value;
 
-    public TrieNode(Character value, boolean endWord){
-        childNodes = new ArrayList<TrieNode>();
+    public TrieNode(T value){
+        childNodes = new ArrayList<TrieNode<T>>();
+        this.value = value;
+        this.endWord = false;
+    }
+    
+    public TrieNode(T value, boolean endWord){
+        childNodes = new ArrayList<TrieNode<T>>();
         this.value = value;
         this.endWord = endWord;
     }
-    public ArrayList<TrieNode> getChildNodes() {
+    public ArrayList<TrieNode<T>> getChildNodes() {
         return childNodes;
     }
-    public void addChildNode(TrieNode t){
+    public void addChildNode(TrieNode<T> t){
         //check to avoid duplicates Node entries
-        for(TrieNode child : childNodes){
+        for(TrieNode<T> child : childNodes){
             if(child.getValue() == t.getValue()) return;
         }
         childNodes.add(t);
     }
-    public boolean findChildNode(Character c){
+    public boolean findChildNode(T c){
         if(childNodes.isEmpty()) return false;//no further children beyond this point
-        for(TrieNode t: childNodes){
+        for(TrieNode<T> t: childNodes){
             if(t.getValue() == c) return true;
         }
         return false;
     }
-    public TrieNode getChildNode(Character c){
-        for(TrieNode t: childNodes){
+    public TrieNode<T> getChildNode(T c){
+        for(TrieNode<T> t: childNodes){
             if(t.getValue() == c) return t;
         }
         return null;
@@ -42,7 +48,7 @@ public class TrieNode
     public boolean isEndWord() {
         return endWord;
     }
-    public Character getValue() {
+    public T getValue() {
         return value;
     }
 }
